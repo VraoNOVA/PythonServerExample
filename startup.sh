@@ -8,5 +8,14 @@ git clone https://github.com/VraoNOVA/PythonServerExample.git PythonServerExampl
 rm -rf PythonServerExample
 mv PythonServerExample_tmp PythonServerExample
 
-# Start the server
-cd /home/site/wwwroot/PythonServerExample && python -m django runserver 0.0.0.0:8000 --settings=settings
+cd /home/site/wwwroot/PythonServerExample
+
+# Install dependencies
+pip install django gunicorn
+
+# Run migrations
+export DJANGO_SETTINGS_MODULE=settings
+python -m django migrate --settings=settings
+
+# Start with Gunicorn (what Azure expects)
+gunicorn --bind=0.0.0.0:8000 --timeout=600 wsgi:application
