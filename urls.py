@@ -23,5 +23,7 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('api/hello/', views.hello, name='hello'),
     path('api/health/', views.health, name='health'),
+    path('api/messages/', views.messages_list, name='messages_list'),
+    path('api/messages/<int:message_id>/', views.message_detail, name='message_detail'),
     path('admin/', admin.site.urls),
 ]
